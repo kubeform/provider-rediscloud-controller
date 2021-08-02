@@ -27,7 +27,7 @@ import (
 	"sync"
 	"time"
 
-	rediscloud "github.com/RedisLabs/terraform-provider-rediscloud/rediscloud/provider"
+	"github.com/RedisLabs/terraform-provider-rediscloud/rediscloud/provider"
 	"github.com/gobuffalo/flect"
 	auditlib "go.bytebuilders.dev/audit/lib"
 	arv1 "k8s.io/api/admissionregistration/v1"
@@ -44,6 +44,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 )
+
+var _provider = provider.New("")()
 
 var runningControllers = struct {
 	sync.RWMutex
@@ -234,8 +236,8 @@ func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVers
 			Log:              ctrl.Log.WithName("controllers").WithName("CloudAccount"),
 			Scheme:           mgr.GetScheme(),
 			Gvk:              gvk,
-			Provider:         rediscloud.Provider(),
-			Resource:         rediscloud.Provider().ResourcesMap["rediscloud_cloud_account"],
+			Provider:         _provider,
+			Resource:         _provider.ResourcesMap["rediscloud_cloud_account"],
 			TypeName:         "rediscloud_cloud_account",
 			WatchOnlyDefault: watchOnlyDefault,
 		}).SetupWithManager(ctx, mgr, auditor); err != nil {
@@ -252,8 +254,8 @@ func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVers
 			Log:              ctrl.Log.WithName("controllers").WithName("Subscription"),
 			Scheme:           mgr.GetScheme(),
 			Gvk:              gvk,
-			Provider:         rediscloud.Provider(),
-			Resource:         rediscloud.Provider().ResourcesMap["rediscloud_subscription"],
+			Provider:         _provider,
+			Resource:         _provider.ResourcesMap["rediscloud_subscription"],
 			TypeName:         "rediscloud_subscription",
 			WatchOnlyDefault: watchOnlyDefault,
 		}).SetupWithManager(ctx, mgr, auditor); err != nil {
@@ -270,8 +272,8 @@ func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVers
 			Log:              ctrl.Log.WithName("controllers").WithName("SubscriptionPeering"),
 			Scheme:           mgr.GetScheme(),
 			Gvk:              gvk,
-			Provider:         rediscloud.Provider(),
-			Resource:         rediscloud.Provider().ResourcesMap["rediscloud_subscription_peering"],
+			Provider:         _provider,
+			Resource:         _provider.ResourcesMap["rediscloud_subscription_peering"],
 			TypeName:         "rediscloud_subscription_peering",
 			WatchOnlyDefault: watchOnlyDefault,
 		}).SetupWithManager(ctx, mgr, auditor); err != nil {
