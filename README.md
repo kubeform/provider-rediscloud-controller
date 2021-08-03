@@ -3,7 +3,7 @@
 
 # provider-rediscloud-controller
 
-Kubeform controller for [Terraform Rediscloud Provider](https://github.com/equinix/terraform-provider-metal)
+Kubeform controller for [Terraform Redis Enterprise Cloud Provider](https://github.com/RedisLabs/terraform-provider-rediscloud)
 
 ## Installation
 
