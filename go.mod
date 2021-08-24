@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/RedisLabs/terraform-provider-rediscloud v0.2.5-0.20210730144149-20f14a5c8cdc
 	github.com/fatih/structs v1.1.0
+	github.com/go-errors/errors v1.0.1
 	github.com/go-logr/logr v0.4.0
 	github.com/gobuffalo/flect v0.2.3
 	github.com/hashicorp/go-cty v1.4.1-0.20200414143053-d3edf31b6320
@@ -18,15 +19,15 @@ require (
 	go.bytebuilders.dev/license-verifier v0.9.2
 	go.bytebuilders.dev/license-verifier/kubernetes v0.9.2
 	gomodules.xyz/logs v0.0.3
-	gomodules.xyz/x v0.0.5
+	gomodules.xyz/x v0.0.7
 	k8s.io/api v0.21.1
 	k8s.io/apiextensions-apiserver v0.21.1
 	k8s.io/apimachinery v0.21.1
 	k8s.io/client-go v0.21.1
 	k8s.io/klog/v2 v2.8.0
-	kmodules.xyz/client-go v0.0.0-20210617233340-13d22e91512b
+	kmodules.xyz/client-go v0.0.0-20210822203828-5e9cebbf1dfa
 	kubeform.dev/apimachinery v0.0.0-20210629153539-7bcd34a30eb5
-	kubeform.dev/provider-rediscloud-api v0.3.1-0.20210804233243-b960122abb50
+	kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824080045-d7417844dcfc
 	sigs.k8s.io/cli-utils v0.25.0
 	sigs.k8s.io/controller-runtime v0.9.0
 )
