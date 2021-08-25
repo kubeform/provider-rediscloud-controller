@@ -1124,8 +1124,8 @@ kmodules.xyz/resource-metadata v0.5.7 h1:5xjq5pEp5hZK+jdkY/4wGk/FMtTyvQ9LlErh7lQ
 kmodules.xyz/resource-metadata v0.5.7/go.mod h1:Jdi7zBXRwwFTOR0CxwKxqJhsDVIilhrgNipPjnKLyrs=
 kubeform.dev/apimachinery v0.0.0-20210824104859-ba5604d5a1cc h1:YfOjHKKQWrKvmkqtLNoN6mNud5Mw7lkGb7SmLS216jc=
 kubeform.dev/apimachinery v0.0.0-20210824104859-ba5604d5a1cc/go.mod h1:v2f/23RmX0K45i0qdPyWaOvzElhXQPMW84JDFEH5kw8=
-kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824193821-68ebde4e0735 h1:0MQcdGIRrn27UAZzgWbqEZGOKOVNIFzBp+1HmwqLOvo=
-kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824193821-68ebde4e0735/go.mod h1:21hZFmZJeT+TwDt5q6jlkDcT4lVTsGJrHbO+idWMC8U=
+kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824195746-ccff3528edf2 h1:wHwifvhV+uw1zfi1m1PugLZDw65de5EJxn+a8z+7eR8=
+kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824195746-ccff3528edf2/go.mod h1:21hZFmZJeT+TwDt5q6jlkDcT4lVTsGJrHbO+idWMC8U=
 rsc.io/quote/v3 v3.1.0/go.mod h1:yEA65RcK8LyAZtP9Kv3t0HmxON59tX3rD+tICJqUlj0=
 rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=
 sigs.k8s.io/apiserver-network-proxy/konnectivity-client v0.0.15/go.mod h1:LEScyzhFmoF5pso/YSeBstl57mOzx9xlU9n85RGrDQg=

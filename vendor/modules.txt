@@ -1110,7 +1110,7 @@ kmodules.xyz/resource-metadata/pkg/graph
 ## explicit
 kubeform.dev/apimachinery/api/v1alpha1
 kubeform.dev/apimachinery/pkg/util
-# kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824193821-68ebde4e0735
+# kubeform.dev/provider-rediscloud-api v0.3.1-0.20210824195746-ccff3528edf2
 ## explicit
 kubeform.dev/provider-rediscloud-api/api/provider
 kubeform.dev/provider-rediscloud-api/apis/rediscloud
