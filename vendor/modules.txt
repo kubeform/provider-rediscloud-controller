@@ -1303,7 +1303,7 @@ kmodules.xyz/resource-metrics/api
 ## explicit
 kubeform.dev/apimachinery/api/v1alpha1
 kubeform.dev/apimachinery/pkg/util
-# kubeform.dev/provider-rediscloud-api v0.4.0
+# kubeform.dev/provider-rediscloud-api v0.4.1-0.20220215063807-1e7d05406660
 ## explicit
 kubeform.dev/provider-rediscloud-api/api/provider
 kubeform.dev/provider-rediscloud-api/apis/rediscloud
