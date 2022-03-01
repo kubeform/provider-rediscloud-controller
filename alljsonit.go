@@ -30,34 +30,32 @@ type Data struct {
 	ResourceType string
 }
 
-var (
-	allJsonIt = map[schema.GroupVersionResource]Data{
-		{
-			Group:    "rediscloud.rediscloud.kubeform.com",
-			Version:  "v1alpha1",
-			Resource: "cloudaccounts",
-		}: {
-			JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
-			ResourceType: "rediscloud_cloud_account",
-		},
-		{
-			Group:    "rediscloud.rediscloud.kubeform.com",
-			Version:  "v1alpha1",
-			Resource: "subscriptions",
-		}: {
-			JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
-			ResourceType: "rediscloud_subscription",
-		},
-		{
-			Group:    "rediscloud.rediscloud.kubeform.com",
-			Version:  "v1alpha1",
-			Resource: "subscriptionpeerings",
-		}: {
-			JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
-			ResourceType: "rediscloud_subscription_peering",
-		},
-	}
-)
+var allJsonIt = map[schema.GroupVersionResource]Data{
+	{
+		Group:    "rediscloud.rediscloud.kubeform.com",
+		Version:  "v1alpha1",
+		Resource: "cloudaccounts",
+	}: {
+		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		ResourceType: "rediscloud_cloud_account",
+	},
+	{
+		Group:    "rediscloud.rediscloud.kubeform.com",
+		Version:  "v1alpha1",
+		Resource: "subscriptions",
+	}: {
+		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		ResourceType: "rediscloud_subscription",
+	},
+	{
+		Group:    "rediscloud.rediscloud.kubeform.com",
+		Version:  "v1alpha1",
+		Resource: "subscriptionpeerings",
+	}: {
+		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		ResourceType: "rediscloud_subscription_peering",
+	},
+}
 
 func getJsonItAndResType(gvr schema.GroupVersionResource) Data {
 	return allJsonIt[gvr]
