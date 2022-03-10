@@ -21,7 +21,8 @@ package main
 import (
 	jsoniter "github.com/json-iterator/go"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	rediscloudv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/rediscloud/v1alpha1"
+	cloudv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/cloud/v1alpha1"
+	subscriptionv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/subscription/v1alpha1"
 	"kubeform.dev/provider-rediscloud-controller/controllers"
 )
 
@@ -32,27 +33,27 @@ type Data struct {
 
 var allJsonIt = map[schema.GroupVersionResource]Data{
 	{
-		Group:    "rediscloud.rediscloud.kubeform.com",
+		Group:    "cloud.rediscloud.kubeform.com",
 		Version:  "v1alpha1",
-		Resource: "cloudaccounts",
+		Resource: "accounts",
 	}: {
-		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		JsonIt:       controllers.GetJSONItr(cloudv1alpha1.GetEncoder(), cloudv1alpha1.GetDecoder()),
 		ResourceType: "rediscloud_cloud_account",
 	},
 	{
-		Group:    "rediscloud.rediscloud.kubeform.com",
+		Group:    "subscription.rediscloud.kubeform.com",
 		Version:  "v1alpha1",
 		Resource: "subscriptions",
 	}: {
-		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		JsonIt:       controllers.GetJSONItr(subscriptionv1alpha1.GetEncoder(), subscriptionv1alpha1.GetDecoder()),
 		ResourceType: "rediscloud_subscription",
 	},
 	{
-		Group:    "rediscloud.rediscloud.kubeform.com",
+		Group:    "subscription.rediscloud.kubeform.com",
 		Version:  "v1alpha1",
-		Resource: "subscriptionpeerings",
+		Resource: "peerings",
 	}: {
-		JsonIt:       controllers.GetJSONItr(rediscloudv1alpha1.GetEncoder(), rediscloudv1alpha1.GetDecoder()),
+		JsonIt:       controllers.GetJSONItr(subscriptionv1alpha1.GetEncoder(), subscriptionv1alpha1.GetDecoder()),
 		ResourceType: "rediscloud_subscription_peering",
 	},
 }
