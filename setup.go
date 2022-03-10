@@ -27,7 +27,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RedisLabs/terraform-provider-rediscloud/rediscloud/provider"
+	rediscloud "github.com/RedisLabs/terraform-provider-rediscloud/rediscloud"
 	"github.com/gobuffalo/flect"
 	auditlib "go.bytebuilders.dev/audit/lib"
 	arv1 "k8s.io/api/admissionregistration/v1"
@@ -39,13 +39,15 @@ import (
 	admissionregistrationv1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/klog/v2"
-	rediscloudv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/rediscloud/v1alpha1"
-	controllersrediscloud "kubeform.dev/provider-rediscloud-controller/controllers/rediscloud"
+	cloudv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/cloud/v1alpha1"
+	subscriptionv1alpha1 "kubeform.dev/provider-rediscloud-api/apis/subscription/v1alpha1"
+	controllerscloud "kubeform.dev/provider-rediscloud-controller/controllers/cloud"
+	controllerssubscription "kubeform.dev/provider-rediscloud-controller/controllers/subscription"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 )
 
-var _provider = provider.New("")()
+var _provider = rediscloud.New("")()
 
 var runningControllers = struct {
 	sync.RWMutex
@@ -228,28 +230,28 @@ func updateVWC(vwcClient *admissionregistrationv1.AdmissionregistrationV1Client,
 func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVersionKind, auditor *auditlib.EventPublisher, restrictToNamespace string) error {
 	switch gvk {
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "cloud.rediscloud.kubeform.com",
 		Version: "v1alpha1",
-		Kind:    "CloudAccount",
+		Kind:    "Account",
 	}:
-		if err := (&controllersrediscloud.CloudAccountReconciler{
+		if err := (&controllerscloud.AccountReconciler{
 			Client:   mgr.GetClient(),
-			Log:      ctrl.Log.WithName("controllers").WithName("CloudAccount"),
+			Log:      ctrl.Log.WithName("controllers").WithName("Account"),
 			Scheme:   mgr.GetScheme(),
 			Gvk:      gvk,
 			Provider: _provider,
 			Resource: _provider.ResourcesMap["rediscloud_cloud_account"],
 			TypeName: "rediscloud_cloud_account",
 		}).SetupWithManager(ctx, mgr, auditor, restrictToNamespace); err != nil {
-			setupLog.Error(err, "unable to create controller", "controller", "CloudAccount")
+			setupLog.Error(err, "unable to create controller", "controller", "Account")
 			return err
 		}
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "subscription.rediscloud.kubeform.com",
 		Version: "v1alpha1",
 		Kind:    "Subscription",
 	}:
-		if err := (&controllersrediscloud.SubscriptionReconciler{
+		if err := (&controllerssubscription.SubscriptionReconciler{
 			Client:   mgr.GetClient(),
 			Log:      ctrl.Log.WithName("controllers").WithName("Subscription"),
 			Scheme:   mgr.GetScheme(),
@@ -262,20 +264,20 @@ func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVers
 			return err
 		}
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "subscription.rediscloud.kubeform.com",
 		Version: "v1alpha1",
-		Kind:    "SubscriptionPeering",
+		Kind:    "Peering",
 	}:
-		if err := (&controllersrediscloud.SubscriptionPeeringReconciler{
+		if err := (&controllerssubscription.PeeringReconciler{
 			Client:   mgr.GetClient(),
-			Log:      ctrl.Log.WithName("controllers").WithName("SubscriptionPeering"),
+			Log:      ctrl.Log.WithName("controllers").WithName("Peering"),
 			Scheme:   mgr.GetScheme(),
 			Gvk:      gvk,
 			Provider: _provider,
 			Resource: _provider.ResourcesMap["rediscloud_subscription_peering"],
 			TypeName: "rediscloud_subscription_peering",
 		}).SetupWithManager(ctx, mgr, auditor, restrictToNamespace); err != nil {
-			setupLog.Error(err, "unable to create controller", "controller", "SubscriptionPeering")
+			setupLog.Error(err, "unable to create controller", "controller", "Peering")
 			return err
 		}
 
@@ -289,30 +291,30 @@ func SetupManager(ctx context.Context, mgr manager.Manager, gvk schema.GroupVers
 func SetupWebhook(mgr manager.Manager, gvk schema.GroupVersionKind) error {
 	switch gvk {
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "cloud.rediscloud.kubeform.com",
 		Version: "v1alpha1",
-		Kind:    "CloudAccount",
+		Kind:    "Account",
 	}:
-		if err := (&rediscloudv1alpha1.CloudAccount{}).SetupWebhookWithManager(mgr); err != nil {
-			setupLog.Error(err, "unable to create webhook", "webhook", "CloudAccount")
+		if err := (&cloudv1alpha1.Account{}).SetupWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "Account")
 			return err
 		}
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "subscription.rediscloud.kubeform.com",
 		Version: "v1alpha1",
 		Kind:    "Subscription",
 	}:
-		if err := (&rediscloudv1alpha1.Subscription{}).SetupWebhookWithManager(mgr); err != nil {
+		if err := (&subscriptionv1alpha1.Subscription{}).SetupWebhookWithManager(mgr); err != nil {
 			setupLog.Error(err, "unable to create webhook", "webhook", "Subscription")
 			return err
 		}
 	case schema.GroupVersionKind{
-		Group:   "rediscloud.rediscloud.kubeform.com",
+		Group:   "subscription.rediscloud.kubeform.com",
 		Version: "v1alpha1",
-		Kind:    "SubscriptionPeering",
+		Kind:    "Peering",
 	}:
-		if err := (&rediscloudv1alpha1.SubscriptionPeering{}).SetupWebhookWithManager(mgr); err != nil {
-			setupLog.Error(err, "unable to create webhook", "webhook", "SubscriptionPeering")
+		if err := (&subscriptionv1alpha1.Peering{}).SetupWebhookWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create webhook", "webhook", "Peering")
 			return err
 		}
 
